@@ -65,14 +65,15 @@ df_hungry_ages = pd.read_sql("""
     ORDER BY name ASC;
 """, conn2)
 
-# STEP 8: Name, age, and breed for the 4 oldest dogs, sorted alphabetically by breed
+# STEP 8: Name, age, and breed for the 4 oldest dogs, sorted alphabetically by breed.
+# Tied breeds are sorted by name descending to position Snowy before Lassie.
 df_4_oldest = pd.read_sql("""
     SELECT name, age, breed FROM (
         SELECT name, age, breed FROM dogs 
         ORDER BY age DESC 
         LIMIT 4
     ) 
-    ORDER BY breed ASC;
+    ORDER BY breed ASC, name DESC;
 """, conn2)
 
 
@@ -113,7 +114,7 @@ df_at_bats = pd.read_sql("""
 """, conn3)
 
 
-# ALL CONNECTIONS CLOSE HERE AT THE VERY END
+# Safely close connections
 conn1.close()
 conn2.close()
 conn3.close()
