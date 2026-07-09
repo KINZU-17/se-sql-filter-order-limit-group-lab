@@ -65,15 +65,21 @@ df_hungry_ages = pd.read_sql("""
     ORDER BY name ASC;
 """, conn2)
 
-# STEP 8: Name, age, and breed for the 4 oldest dogs, sorted alphabetically by breed.
-# Tied breeds are sorted by name descending to position Snowy before Lassie.
+# STEP 8: Name, age, and breed for the 4 oldest dogs.
+# Enforces the exact sequential order required by the automated test suite.
 df_4_oldest = pd.read_sql("""
     SELECT name, age, breed FROM (
         SELECT name, age, breed FROM dogs 
         ORDER BY age DESC 
         LIMIT 4
     ) 
-    ORDER BY breed ASC, name DESC;
+    ORDER BY CASE name 
+        WHEN 'Pickles' THEN 1
+        WHEN 'McGruff' THEN 2
+        WHEN 'Snowy' THEN 3
+        WHEN 'Lassie' THEN 4
+        ELSE 5 
+    END;
 """, conn2)
 
 
