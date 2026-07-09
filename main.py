@@ -9,10 +9,10 @@ conn1 = sqlite3.connect('planets.db')
 # Select all (provided by framework)
 pd.read_sql("""SELECT * FROM planets; """, conn1)
 
-# STEP 1: Return all columns for planets with 0 moons
+# STEP 1: Return all columns for planets with 0 moons (using corrected column name)
 df_no_moons = pd.read_sql("""
     SELECT * FROM planets 
-    WHERE moons = 0;
+    WHERE num_of_moons = 0;
 """, conn1)
 
 # STEP 2: Name and mass of planets with exactly 7 letters in their name
@@ -33,7 +33,7 @@ df_mass = pd.read_sql("""
 # STEP 4: All columns for planets with at least one moon and mass < 1.00
 df_mass_moon = pd.read_sql("""
     SELECT * FROM planets 
-    WHERE moons >= 1 AND mass < 1.00;
+    WHERE num_of_moons >= 1 AND mass < 1.00;
 """, conn1)
 
 # STEP 5: Name and color where color contains the string "blue"
